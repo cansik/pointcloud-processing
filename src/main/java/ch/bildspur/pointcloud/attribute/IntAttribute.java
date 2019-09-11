@@ -11,6 +11,12 @@ public class IntAttribute extends PointCloudAttribute{
         super(elementSize);
     }
 
+    public void set(int index, int... values) {
+        for(int i = 0; i < values.length; i++) {
+            buffer.put(index + i, values[i]);
+        }
+    }
+
     @Override
     public void allocate(int length) {
         buffer = allocateDirectIntBuffer(elementSize * length);

@@ -1,5 +1,8 @@
 package ch.bildspur.pointcloud.test;
 
+import ch.bildspur.pointcloud.attribute.FloatAttribute;
+import ch.bildspur.pointcloud.buffer.GLPointCloudBuffer;
+import ch.bildspur.pointcloud.buffer.PointCloudBuffer;
 import processing.core.PApplet;
 
 
@@ -24,6 +27,13 @@ public class BasicPointCloudSketch extends PApplet {
     public void setup()
     {
         colorMode(HSB, 360, 100, 100);
+
+        PointCloudBuffer pointCloudBuffer = new GLPointCloudBuffer(100);
+        FloatAttribute positionAttribute = new FloatAttribute(4);
+
+        pointCloudBuffer.addAttribute("position", positionAttribute);
+
+        pointCloudBuffer.allocate();
     }
 
     @Override

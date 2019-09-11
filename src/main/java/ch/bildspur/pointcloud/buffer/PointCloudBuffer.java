@@ -2,9 +2,7 @@ package ch.bildspur.pointcloud.buffer;
 
 import ch.bildspur.pointcloud.attribute.PointCloudAttribute;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public abstract class PointCloudBuffer {
@@ -19,6 +17,10 @@ public abstract class PointCloudBuffer {
 
     public void addAttribute(String name, PointCloudAttribute attribute) {
         this.attributes.put(name, attribute);
+    }
+
+    public <T extends PointCloudAttribute> T getAttribute(String name) {
+        return (T)attributes.get(name);
     }
 
     public Map<String, PointCloudAttribute> getAttributes() {

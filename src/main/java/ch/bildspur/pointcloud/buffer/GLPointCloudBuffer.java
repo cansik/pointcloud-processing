@@ -10,7 +10,7 @@ public class GLPointCloudBuffer extends PointCloudBuffer {
     @Override
     public void allocate() {
         // allocate storage for each attribute
-        for(PointCloudAttribute attribute : getAttributes()) {
+        for(PointCloudAttribute attribute : getAttributes().values()) {
             attribute.allocate(length);
         }
     }
