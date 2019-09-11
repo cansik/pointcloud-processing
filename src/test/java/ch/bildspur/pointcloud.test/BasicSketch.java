@@ -1,10 +1,11 @@
 package ch.bildspur.pointcloud.test;
 
+import ch.bildspur.pointcloud.PointCloudRenderer;
 import ch.bildspur.pointcloud.attribute.FloatAttribute;
-import ch.bildspur.pointcloud.buffer.GLPointCloudBuffer;
-import ch.bildspur.pointcloud.buffer.PointCloudBuffer;
+import ch.bildspur.pointcloud.PointCloudBuffer;
 import processing.core.PApplet;
 import processing.core.PVector;
+import processing.opengl.PShader;
 
 
 public class BasicSketch extends PApplet {
@@ -13,7 +14,10 @@ public class BasicSketch extends PApplet {
         sketch.run();
     }
 
-    PointCloudBuffer pointCloudBuffer;
+
+    PShader shader;
+    PointCloudRenderer pclRenderer = new PointCloudRenderer(this);
+    PointCloudBuffer pclBuffer;
 
     public void run()
     {
@@ -30,17 +34,20 @@ public class BasicSketch extends PApplet {
     public void setup()
     {
         // setup renderer
-
+        shader = loadShader("shader/basicPointFrag.glsl", "shader/basicPointVertex.glsl");
+        pclRenderer.setShader(shader);
 
         // setup pointcloud
-        pointCloudBuffer = new GLPointCloudBuffer(100);
-        FloatAttribute positionAttribute = new FloatAttribute(4);
+        pclBuffer = new PointCloudBuffer(100);
+        FloatAttribute positionAttribute = new FloatAttribute("position", 4);
 
-        pointCloudBuffer.addAttribute("position", positionAttribute);
-        pointCloudBuffer.allocate();
+        pclBuffer.addAttribute(positionAttribute);
+        pclBuffer.allocate();
+
+        pclRenderer.attach(pclBuffer);
 
         // fill with random points
-        for(int i = 0; i < pointCloudBuffer.getLength(); i++) {
+        for(int i = 0; i < pclBuffer.getLength(); i++) {
             PVector v = PVector.random3D();
             v.mult(100);
 
@@ -50,8 +57,7 @@ public class BasicSketch extends PApplet {
 
     @Override
     public void draw() {
-        int c = color(frameCount % 360, 50, 50);
-
-        background(c);
+        background(0);
+        pclRenderer.render(pclBuffer);
     }
 }
