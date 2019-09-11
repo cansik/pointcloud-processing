@@ -4,13 +4,16 @@ import ch.bildspur.pointcloud.attribute.FloatAttribute;
 import ch.bildspur.pointcloud.buffer.GLPointCloudBuffer;
 import ch.bildspur.pointcloud.buffer.PointCloudBuffer;
 import processing.core.PApplet;
+import processing.core.PVector;
 
 
-public class BasicPointCloudSketch extends PApplet {
+public class BasicSketch extends PApplet {
     public static void main(String... args) {
-        BasicPointCloudSketch sketch = new BasicPointCloudSketch();
+        BasicSketch sketch = new BasicSketch();
         sketch.run();
     }
+
+    PointCloudBuffer pointCloudBuffer;
 
     public void run()
     {
@@ -26,14 +29,23 @@ public class BasicPointCloudSketch extends PApplet {
     @Override
     public void setup()
     {
-        colorMode(HSB, 360, 100, 100);
+        // setup renderer
 
-        PointCloudBuffer pointCloudBuffer = new GLPointCloudBuffer(100);
+
+        // setup pointcloud
+        pointCloudBuffer = new GLPointCloudBuffer(100);
         FloatAttribute positionAttribute = new FloatAttribute(4);
 
         pointCloudBuffer.addAttribute("position", positionAttribute);
-
         pointCloudBuffer.allocate();
+
+        // fill with random points
+        for(int i = 0; i < pointCloudBuffer.getLength(); i++) {
+            PVector v = PVector.random3D();
+            v.mult(100);
+
+            positionAttribute.set(i * positionAttribute.getElementSize(), v.x, v.y, v.z);
+        }
     }
 
     @Override

@@ -26,4 +26,8 @@ public abstract class PointCloudBuffer {
     public Map<String, PointCloudAttribute> getAttributes() {
         return attributes;
     }
+
+    public int getLength() {
+        return length;
+    }
 }

@@ -11,6 +11,10 @@ public class FloatAttribute extends PointCloudAttribute {
         super(elementSize);
     }
 
+    public void set(int index, float value) {
+        buffer.put(index, value);
+    }
+
     public void set(int index, float... values) {
         for(int i = 0; i < values.length; i++) {
             buffer.put(index + i, values[i]);
