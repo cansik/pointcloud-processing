@@ -21,9 +21,16 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
     // processing
-    compile group: 'org.processing', name: 'core', version: '3.3.6'
-    compile group: 'org.jogamp.jogl', name: 'jogl-all-main', version: '2.3.2'
-    compile group: 'org.jogamp.gluegen', name: 'gluegen-rt-main', version: '2.3.2'
+    // processing
+    compile files('lib/processing/core.jar')
+    compile files('lib/processing/gluegen-rt.jar')
+    compile files('lib/processing/jogl-all.jar')
+
+    // peasycam
+    compile files('lib/peasycam/peasycam.jar')
+
+    // ply
+    compile files('lib/ply/sjmply.jar')
 }
 
 configurations {
