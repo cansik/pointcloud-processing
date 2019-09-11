@@ -1,0 +1,52 @@
+plugins {
+	id 'java'
+    id 'java-library'
+}
+
+group 'ch.bildspur.pointcloud'
+version '0.5.1'
+
+sourceCompatibility = 1.8
+
+wrapper {
+  gradleVersion = '5.2'
+  distributionUrl = 'https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // processing
+    testCompile group: 'org.processing', name: 'core', version: '3.3.6'
+    testCompile group: 'org.jogamp.jogl', name: 'jogl-all-main', version: '2.3.2'
+    testCompile group: 'org.jogamp.gluegen', name: 'gluegen-rt-main', version: '2.3.2'
+}
+
+configurations {
+    jar.archiveName = 'pointcloud-processing.jar'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier.set('sources')
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier.set('javadoc')
+}
+
+javadoc {
+    source = sourceSets.main.allJava
+    classpath = configurations.compile
+}
+
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

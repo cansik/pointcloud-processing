@@ -1,2 +1,2 @@
-# pointcloud-processing
-A point cloud visualisation and analysis library for Processing.
+# Pointcloud for Processing
+A point cloud visualisation and analysis library for the [Processing](https://processing.org/) framework.
