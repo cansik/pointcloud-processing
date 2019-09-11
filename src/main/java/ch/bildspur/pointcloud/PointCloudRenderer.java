@@ -30,7 +30,7 @@ public class PointCloudRenderer {
 
         // generate vbo ids (+1 for indices)
         IntBuffer intBuffer = IntBuffer.allocate(buffer.getAttributes().size() + 1);
-        gl.glGenBuffers(buffer.getAttributes().size(), intBuffer);
+        gl.glGenBuffers(buffer.getAttributes().size() + 1, intBuffer);
 
         // set indices vboid
         buffer.getIndicesAttribute().setVboId(intBuffer.get(0));
@@ -41,7 +41,7 @@ public class PointCloudRenderer {
         for(PointCloudAttribute attribute : buffer.getAttributes().values()) {
             int location = gl.glGetAttribLocation(shader.glProgram, attribute.getName());
 
-            attribute.setVboId(intBuffer.get(i) + 1);
+            attribute.setVboId(intBuffer.get(i + 1));
             attribute.setShaderLocation(location);
 
             i++;
