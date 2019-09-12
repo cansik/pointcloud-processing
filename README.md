@@ -10,6 +10,8 @@ This framework allows you to display millions of points within your Processing s
 
 [PShape](https://github.com/processing/processing/blob/master/core/src/processing/opengl/PShapeOpenGL.java) can display points with the point shader, but because processing tessellates each point on the CPU, manipulations to the point cloud data are slow, plus there is overhead because even more vertices are allocated the needed on modern systems. This pipeline uses the OpenGL commands to generate the billboarding & tessellation directly on the graphics card, which leads to a faster drawing and simple one-to-one vertex indexing.
 
+*(5'000'000 points with 60 FPS is possible on a Radeon Pro 460)*
+
 #### Attributes
 With the original PShape, it was possible to add custom vertex attributes to a mesh. However, in `POINTS` mode, the tessellation would not care about these additional custom vertex attributes, as shown [here](https://github.com/processing/processing/issues/5895). Instead, this library offers you the full potential of vertex attributes for point vertices.
 
