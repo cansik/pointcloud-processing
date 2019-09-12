@@ -14,7 +14,7 @@ public class PointCloudBuffer {
     public PointCloudBuffer(int length) {
         this.length = length;
         this.attributes = new HashMap<>();
-        this.indicesAttribute = new IntAttribute("indices", length);
+        this.indicesAttribute = new IntAttribute("indices", 1);
     }
 
     public void allocate() {
