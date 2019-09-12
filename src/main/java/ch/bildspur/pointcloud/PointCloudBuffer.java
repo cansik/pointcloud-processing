@@ -24,8 +24,9 @@ public class PointCloudBuffer {
 
         // allocate and fill indices attribute
         indicesAttribute.allocate(length);
-        for(int i = 0; i < length; i++)
+        for(int i = 0; i < length; i++) {
             this.indicesAttribute.set(i, i);
+        }
     }
 
     public void addAttribute(PointCloudAttribute attribute) {

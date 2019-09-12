@@ -1,5 +1,3 @@
-package ch.bildspur.pointcloud.test;
-
 import ch.bildspur.pointcloud.PointCloudRenderer;
 import ch.bildspur.pointcloud.attribute.FloatAttribute;
 import ch.bildspur.pointcloud.PointCloudBuffer;
@@ -9,13 +7,15 @@ import processing.core.PVector;
 import processing.opengl.PJOGL;
 import processing.opengl.PShader;
 
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+
 
 public class BasicSketch extends PApplet {
     public static void main(String... args) {
         BasicSketch sketch = new BasicSketch();
         sketch.run();
     }
-
 
     PShader shader;
     PointCloudRenderer pclRenderer = new PointCloudRenderer(this);
@@ -31,7 +31,7 @@ public class BasicSketch extends PApplet {
     @Override
     public void settings()
     {
-        size(500, 500, P3D);
+        size(800, 600, P3D);
         PJOGL.profile = 4;
     }
 
@@ -45,7 +45,7 @@ public class BasicSketch extends PApplet {
         pclRenderer.setShader(shader);
 
         // setup pointcloud
-        pclBuffer = new PointCloudBuffer(500);
+        pclBuffer = new PointCloudBuffer(1000 * 1000);
         FloatAttribute positionAttribute = new FloatAttribute("position", 4);
 
         pclBuffer.addAttribute(positionAttribute);
@@ -55,8 +55,8 @@ public class BasicSketch extends PApplet {
         // fill with random points
         for(int i = 0; i < pclBuffer.getLength(); i++) {
             PVector v = PVector.random3D();
-            v.mult(10);
-            positionAttribute.set(i * positionAttribute.getElementSize(), v.x, v.y, v.z);
+            v.mult(500);
+            positionAttribute.set(i * positionAttribute.getElementSize(), v.x, v.y, v.z, 1.0f);
         }
 
         pclRenderer.attach(pclBuffer);
@@ -64,13 +64,11 @@ public class BasicSketch extends PApplet {
 
     @Override
     public void draw() {
-        background(100);
-
-        box(50);
-
-        g.push();
-        g.translate(0, 0, 0);
+        background(22);
         pclRenderer.render(pclBuffer);
-        g.pop();
+
+        cam.beginHUD();
+        text("FPS: " + frameRate + "\nVertices: " + pclBuffer.getLength(), 30, 30);
+        cam.endHUD();
     }
 }

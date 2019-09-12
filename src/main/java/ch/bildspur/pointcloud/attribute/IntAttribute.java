@@ -28,6 +28,12 @@ public class IntAttribute extends PointCloudAttribute{
         buffer.rewind();
     }
 
+    public void set(int[] values) {
+        buffer.rewind();
+        buffer.put(values);
+        buffer.rewind();
+    }
+
     @Override
     public void allocate(int length) {
         buffer = allocateDirectIntBuffer(elementSize * length);

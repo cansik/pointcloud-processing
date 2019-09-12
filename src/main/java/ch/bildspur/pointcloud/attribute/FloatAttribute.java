@@ -28,6 +28,12 @@ public class FloatAttribute extends PointCloudAttribute {
         buffer.rewind();
     }
 
+    public void set(float[] values) {
+        buffer.rewind();
+        buffer.put(values);
+        buffer.rewind();
+    }
+
     @Override
     public int getGLType() {
         return GL.GL_FLOAT;
