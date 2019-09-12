@@ -42,7 +42,7 @@ public class LoadCloudSketch extends PApplet {
 
         // setup pointcloud
         PLYReader reader = new PLYReader(PLYFormat.BINARY_LITTLE_ENDIAN);
-        pclBuffer = reader.read("readme/forest.ply");
+        pclBuffer = reader.read("readme/Kornhaus_5m.ply");
 
         pclRenderer.attach(pclBuffer);
     }
@@ -52,7 +52,7 @@ public class LoadCloudSketch extends PApplet {
         background(100, 178, 205);
 
         push();
-        scale(30f);
+        scale(10f);
         rotateZ(PI);
         rotateX(PI/-2);
         pclRenderer.render(pclBuffer);

@@ -5,3 +5,5 @@ build
 release
 *.log
 readme/forest.ply
+readme/Kornhaus_6m.ply
+readme/Kornhaus_5m.ply

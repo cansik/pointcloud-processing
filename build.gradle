@@ -21,7 +21,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
     // processing
-    // processing
     compile files('lib/processing/core.jar')
     compile files('lib/processing/gluegen-rt.jar')
     compile files('lib/processing/jogl-all.jar')
