@@ -1,16 +1,17 @@
-import ch.bildspur.pointcloud.visual.PointCloudRenderer;
 import ch.bildspur.pointcloud.attribute.FloatAttribute;
+import ch.bildspur.pointcloud.io.reader.PLYReader;
 import ch.bildspur.pointcloud.visual.PointCloudBuffer;
+import ch.bildspur.pointcloud.visual.PointCloudRenderer;
+import org.jengineering.sjmply.PLYFormat;
 import peasy.PeasyCam;
 import processing.core.PApplet;
 import processing.core.PVector;
 import processing.opengl.PJOGL;
 import processing.opengl.PShader;
 
-
-public class BasicSketch extends PApplet {
+public class LoadCloudSketch extends PApplet {
     public static void main(String... args) {
-        BasicSketch sketch = new BasicSketch();
+        LoadCloudSketch sketch = new LoadCloudSketch();
         sketch.run();
     }
 
@@ -20,22 +21,19 @@ public class BasicSketch extends PApplet {
 
     PeasyCam cam;
 
-    public void run()
-    {
+    public void run() {
         runSketch();
     }
 
     @Override
-    public void settings()
-    {
+    public void settings() {
         size(800, 600, P3D);
         //fullScreen(P3D);
         PJOGL.profile = 2;
     }
 
     @Override
-    public void setup()
-    {
+    public void setup() {
         cam = new PeasyCam(this, 400);
 
         // setup renderer
@@ -43,27 +41,22 @@ public class BasicSketch extends PApplet {
         pclRenderer.setShader(shader);
 
         // setup pointcloud
-        pclBuffer = new PointCloudBuffer(1000 * 100);
-        FloatAttribute positionAttribute = new FloatAttribute("position", 4);
-
-        pclBuffer.addAttribute(positionAttribute);
-
-        pclBuffer.allocate();
-
-        // fill with random points
-        for(int i = 0; i < pclBuffer.getLength(); i++) {
-            PVector v = PVector.random3D();
-            v.mult(random(1, 500));
-            positionAttribute.set(i * positionAttribute.getElementSize(), v.x, v.y, v.z, 1.0f);
-        }
+        PLYReader reader = new PLYReader(PLYFormat.BINARY_LITTLE_ENDIAN);
+        pclBuffer = reader.read("readme/forest.ply");
 
         pclRenderer.attach(pclBuffer);
     }
 
     @Override
     public void draw() {
-        background(22);
+        background(100, 178, 205);
+
+        push();
+        scale(30f);
+        rotateZ(PI);
+        rotateX(PI/-2);
         pclRenderer.render(pclBuffer);
+        pop();
 
         cam.beginHUD();
         text("FPS: " + frameRate + "\nVertices: " + pclBuffer.getLength(), 30, 30);
