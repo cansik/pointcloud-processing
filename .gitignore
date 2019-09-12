@@ -4,3 +4,4 @@ out
 build
 release
 *.log
+readme/forest.ply

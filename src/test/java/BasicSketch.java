@@ -1,14 +1,11 @@
-import ch.bildspur.pointcloud.PointCloudRenderer;
+import ch.bildspur.pointcloud.visual.PointCloudRenderer;
 import ch.bildspur.pointcloud.attribute.FloatAttribute;
-import ch.bildspur.pointcloud.PointCloudBuffer;
+import ch.bildspur.pointcloud.visual.PointCloudBuffer;
 import peasy.PeasyCam;
 import processing.core.PApplet;
 import processing.core.PVector;
 import processing.opengl.PJOGL;
 import processing.opengl.PShader;
-
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 
 
 public class BasicSketch extends PApplet {
@@ -32,7 +29,8 @@ public class BasicSketch extends PApplet {
     public void settings()
     {
         size(800, 600, P3D);
-        PJOGL.profile = 4;
+        //fullScreen(P3D);
+        PJOGL.profile = 2;
     }
 
     @Override
@@ -45,7 +43,7 @@ public class BasicSketch extends PApplet {
         pclRenderer.setShader(shader);
 
         // setup pointcloud
-        pclBuffer = new PointCloudBuffer(1000 * 1000 * 5);
+        pclBuffer = new PointCloudBuffer(1000 * 1000);
         FloatAttribute positionAttribute = new FloatAttribute("position", 4);
 
         pclBuffer.addAttribute(positionAttribute);
@@ -55,7 +53,7 @@ public class BasicSketch extends PApplet {
         // fill with random points
         for(int i = 0; i < pclBuffer.getLength(); i++) {
             PVector v = PVector.random3D();
-            v.mult(500);
+            v.mult(random(1, 500));
             positionAttribute.set(i * positionAttribute.getElementSize(), v.x, v.y, v.z, 1.0f);
         }
 

@@ -1,4 +1,4 @@
-package ch.bildspur.pointcloud;
+package ch.bildspur.pointcloud.visual;
 
 import ch.bildspur.pointcloud.attribute.IntAttribute;
 import ch.bildspur.pointcloud.attribute.PointCloudAttribute;
