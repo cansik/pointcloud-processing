@@ -1,11 +1,9 @@
-import ch.bildspur.pointcloud.attribute.FloatAttribute;
 import ch.bildspur.pointcloud.io.reader.PLYReader;
 import ch.bildspur.pointcloud.visual.PointCloudBuffer;
 import ch.bildspur.pointcloud.visual.PointCloudRenderer;
 import org.jengineering.sjmply.PLYFormat;
 import peasy.PeasyCam;
 import processing.core.PApplet;
-import processing.core.PVector;
 import processing.opengl.PJOGL;
 import processing.opengl.PShader;
 
@@ -42,7 +40,7 @@ public class LoadCloudSketch extends PApplet {
 
         // setup pointcloud
         PLYReader reader = new PLYReader(PLYFormat.BINARY_LITTLE_ENDIAN);
-        pclBuffer = reader.read("readme/Kornhaus_5m.ply");
+        pclBuffer = reader.read("readme/Kornhaus_2.5m.ply");
 
         pclRenderer.attach(pclBuffer);
     }

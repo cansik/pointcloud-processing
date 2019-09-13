@@ -76,7 +76,7 @@ public class PLYReader implements PointCloudReader {
                 float bv = (b[i] & 0xFF) / 255f;
                 color.set(i * color.getElementSize(), rv, gv, bv, 1.0f);
             }
-            position.set(i * position.getElementSize(), x[i], y[i], z[i], 1.0f);
+            position.set(i * position.getElementSize(), x[i], -y[i], z[i], 1.0f);
         }
 
         return cloud;
