@@ -28,7 +28,7 @@ public class LoadCloudSketch extends PApplet {
     public void settings() {
         size(800, 600, P3D);
         //fullScreen(P3D);
-        PJOGL.profile = 2;
+        PJOGL.profile = 4;
         pixelDensity(2);
     }
 
@@ -45,8 +45,8 @@ public class LoadCloudSketch extends PApplet {
         PLYReader reader = new PLYReader(PLYFormat.BINARY_LITTLE_ENDIAN);
         // pclBuffer = reader.read("readme/Kornhaus_2.5m.ply");
         // pclBuffer = reader.read("readme/Kornhaus_1m.ply");
-        pclBuffer = reader.read("readme/Kornhaus_500k.ply");
-        // pclBuffer = reader.read("readme/StadtmuseumAarau_8mio.ply");
+        //pclBuffer = reader.read("readme/Kornhaus_500k.ply");
+        pclBuffer = reader.read("readme/StadtmuseumAarau_8mio.ply");
 
         pclRenderer.attach(pclBuffer);
     }
@@ -56,7 +56,7 @@ public class LoadCloudSketch extends PApplet {
         background(100, 178, 205);
 
         push();
-        scale(10f);
+        scale(50f);
         rotateZ(PI);
         rotateX(PI/-2);
         pclRenderer.render(pclBuffer);

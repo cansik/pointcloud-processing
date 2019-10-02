@@ -13,7 +13,7 @@ in vec4 color;
 out vec4 vertColor;
 
 void main() {
-	gl_PointSize = 3.0;
+	gl_PointSize = 1.0;
 
 	//vec4 worldPosition = transform * position;
 	//gl_Position = worldPosition;

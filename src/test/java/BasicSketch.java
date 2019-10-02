@@ -45,7 +45,7 @@ public class BasicSketch extends PApplet {
         pclRenderer.setShader(shader);
 
         // setup pointcloud
-        pclBuffer = new PointCloudBuffer(1000);
+        pclBuffer = new PointCloudBuffer(1000 * 1000);
         FloatAttribute positionAttribute = new FloatAttribute("position", 4);
 
         pclBuffer.addAttribute(positionAttribute);
