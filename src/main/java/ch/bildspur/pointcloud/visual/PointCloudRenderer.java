@@ -64,7 +64,7 @@ public class PointCloudRenderer {
             gl.glBindBuffer(GL.GL_ARRAY_BUFFER, attribute.getVboId());
             gl.glBufferData(
                     GL.GL_ARRAY_BUFFER,
-                    attribute.getSizeOfType() * buffer.getLength(),
+                    attribute.getSizeOfType() * attribute.getElementSize() * buffer.getLength(),
                     attribute.getBuffer(),
                     GL.GL_DYNAMIC_DRAW);
             gl.glVertexAttribPointer(attribute.getShaderLocation(), attribute.getElementSize(), attribute.getGLType(),
@@ -79,7 +79,7 @@ public class PointCloudRenderer {
         gl.glBindBuffer(PGL.ELEMENT_ARRAY_BUFFER, indices.getVboId());
         pgl.bufferData(
                 PGL.ELEMENT_ARRAY_BUFFER,
-                indices.getSizeOfType() * buffer.getLength(),
+                indices.getSizeOfType() * indices.getElementSize() * buffer.getLength(),
                 indices.getBuffer(),
                 GL.GL_DYNAMIC_DRAW);
 
