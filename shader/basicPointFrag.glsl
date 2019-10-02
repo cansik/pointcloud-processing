@@ -7,5 +7,5 @@ in vec4 vertColor;
 out vec4 fragColor;
 
 void main() {
-  fragColor = vertColor;
+  fragColor = mix(vec4(1.0, 1.0, 1.0, 1.0), vertColor, vertColor.a);
 }

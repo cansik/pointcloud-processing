@@ -8,15 +8,18 @@ import processing.core.PConstants;
 import processing.opengl.PJOGL;
 import processing.opengl.PShader;
 
-public class LoadCloudSketch extends PApplet {
+public class MultiLoadSketch extends PApplet {
     public static void main(String... args) {
-        LoadCloudSketch sketch = new LoadCloudSketch();
+        MultiLoadSketch sketch = new MultiLoadSketch();
         sketch.run();
     }
 
     PShader shader;
     PointCloudRenderer pclRenderer = new PointCloudRenderer(this);
-    PointCloudBuffer pclBuffer;
+
+    PointCloudBuffer kornhaus2mio;
+    PointCloudBuffer kornhaus1mio;
+    PointCloudBuffer kornhaus500k;
 
     PeasyCam cam;
 
@@ -26,8 +29,7 @@ public class LoadCloudSketch extends PApplet {
 
     @Override
     public void settings() {
-        size(800, 600, P3D);
-        //fullScreen(P3D);
+        size(1024, 600, P3D);
         PJOGL.profile = 2;
         pixelDensity(2);
     }
@@ -43,27 +45,35 @@ public class LoadCloudSketch extends PApplet {
 
         // setup pointcloud
         PLYReader reader = new PLYReader(PLYFormat.BINARY_LITTLE_ENDIAN);
-        // pclBuffer = reader.read("readme/Kornhaus_2.5m.ply");
-        // pclBuffer = reader.read("readme/Kornhaus_1m.ply");
-        pclBuffer = reader.read("readme/Kornhaus_500k.ply");
-        // pclBuffer = reader.read("readme/StadtmuseumAarau_8mio.ply");
+        kornhaus2mio = reader.read("readme/Kornhaus_2.5m.ply");
+        kornhaus1mio = reader.read("readme/Kornhaus_1m.ply");
+        kornhaus500k = reader.read("readme/Kornhaus_500k.ply");
 
-        pclRenderer.attach(pclBuffer);
+        pclRenderer.attach(kornhaus2mio);
+        pclRenderer.attach(kornhaus1mio);
+        pclRenderer.attach(kornhaus500k);
     }
 
     @Override
     public void draw() {
         background(100, 178, 205);
 
-        push();
-        scale(10f);
-        rotateZ(PI);
-        rotateX(PI/-2);
-        pclRenderer.render(pclBuffer);
-        pop();
+        renderCloud(kornhaus500k, map(2, 0, 8, -width / 2f, +width / 2f), 0);
+        renderCloud(kornhaus1mio, map(4, 0, 8, -width / 2f, +width / 2f), 0);
+        renderCloud(kornhaus2mio, map(6, 0, 8, -width / 2f, +width / 2f), 0);
 
         cam.beginHUD();
-        text("FPS: " + frameRate + "\nVertices: " + pclBuffer.getLength(), 30, 30);
+        text("FPS: " + frameRate, 30, 30);
         cam.endHUD();
+    }
+
+    private void renderCloud(PointCloudBuffer cloud, float x, float y) {
+        push();
+        translate(x, y);
+        scale(1f);
+        rotateZ(PI);
+        rotateZ(frameCount / 1000f);
+        pclRenderer.render(cloud);
+        pop();
     }
 }

@@ -20,6 +20,8 @@ public class BasicSketch extends PApplet {
 
     PeasyCam cam;
 
+    boolean drawRect = false;
+
     public void run()
     {
         runSketch();
@@ -43,7 +45,7 @@ public class BasicSketch extends PApplet {
         pclRenderer.setShader(shader);
 
         // setup pointcloud
-        pclBuffer = new PointCloudBuffer(1000 * 100);
+        pclBuffer = new PointCloudBuffer(1000);
         FloatAttribute positionAttribute = new FloatAttribute("position", 4);
 
         pclBuffer.addAttribute(positionAttribute);
@@ -51,9 +53,17 @@ public class BasicSketch extends PApplet {
         pclBuffer.allocate();
 
         // fill with random points
+        float pointPerSide = sqrt(pclBuffer.getLength()) / 2;
+        float size = 500;
+        float sizeStep = size / pointPerSide;
+
         for(int i = 0; i < pclBuffer.getLength(); i++) {
-            PVector v = PVector.random3D();
-            v.mult(random(1, 500));
+            float x = sizeStep * (i % pointPerSide);
+            float y = sizeStep * floor(i / pointPerSide);
+
+            PVector v = new PVector();
+            v.x = x;
+            v.y = y;
             positionAttribute.set(i * positionAttribute.getElementSize(), v.x, v.y, v.z, 1.0f);
         }
 
@@ -65,8 +75,19 @@ public class BasicSketch extends PApplet {
         background(22);
         pclRenderer.render(pclBuffer);
 
+        if(drawRect) {
+            noFill();
+            stroke(0, 255, 0);
+            rect(0, 0, 500, 500);
+        }
+
         cam.beginHUD();
-        text("FPS: " + frameRate + "\nVertices: " + pclBuffer.getLength(), 30, 30);
+        text("FPS: " + frameRate + "\nVertices: " + pclBuffer.getLength() +"\nBB: " + drawRect, 30, 30);
         cam.endHUD();
+    }
+
+    @Override
+    public void keyPressed() {
+        drawRect = !drawRect;
     }
 }

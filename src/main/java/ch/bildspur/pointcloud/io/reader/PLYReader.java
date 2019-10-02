@@ -68,7 +68,7 @@ public class PLYReader implements PointCloudReader {
 
         cloud.allocate();
 
-        for (int i = 0; i < x.length; i++)
+        for (int i = 0; i < vertex.size; i++)
         {
             if (colorLoaded) {
                 float rv = (r[i] & 0xFF) / 255f;
