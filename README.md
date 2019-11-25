@@ -44,4 +44,4 @@ Currently there are two problems you have to deal with ⚡️:
 [examples/BasicPointCloud](examples/BasicPointCloud)
 
 ### About
-
+Written by myself in my freetime. No license yet, but will be open source.
