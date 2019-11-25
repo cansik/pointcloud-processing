@@ -100,6 +100,13 @@ public class PointCloudRenderer {
         shader.unbind();
         app.endPGL();
 
+        // set modified flag on processing
+        // todo: use canvas to render onto
+        app.g.setModified(true);
+        app.g.setModified();
+        // todo: remove line and set g to modified
+        app.g.line(1000, 1000, 1000, 1001, 1001, 1001);
+
         // reset dirty flag
         if(buffer.isDirty())
             buffer.setDirty(false);
