@@ -38,7 +38,7 @@ public class PointCloudRenderer {
         // allocate storage and set ids
         int i = 0;
         shader.bind();
-        for(PointCloudAttribute attribute : buffer.getAttributes().values()) {
+        for (PointCloudAttribute attribute : buffer.getAttributes().values()) {
             int location = gl.glGetAttribLocation(shader.glProgram, attribute.getName());
 
             attribute.setVboId(intBuffer.get(i + 1));
@@ -48,6 +48,9 @@ public class PointCloudRenderer {
         }
         shader.unbind();
         app.endPGL();
+
+        // set dirty flag
+        buffer.setDirty(true);
     }
 
     public void render(PointCloudBuffer buffer) {
@@ -58,15 +61,16 @@ public class PointCloudRenderer {
 
         shader.bind();
         // enable vbos and add buffer
-        for(PointCloudAttribute attribute : attributes) {
+        for (PointCloudAttribute attribute : attributes) {
             gl.glEnableVertexAttribArray(attribute.getShaderLocation());
 
             gl.glBindBuffer(GL.GL_ARRAY_BUFFER, attribute.getVboId());
-            gl.glBufferData(
-                    GL.GL_ARRAY_BUFFER,
-                    attribute.getSizeOfType() * attribute.getElementSize() * buffer.getLength(),
-                    attribute.getBuffer(),
-                    GL.GL_DYNAMIC_DRAW);
+            if (buffer.isDirty())
+                gl.glBufferData(
+                        GL.GL_ARRAY_BUFFER,
+                        attribute.getSizeOfType() * attribute.getElementSize() * buffer.getLength(),
+                        attribute.getBuffer(),
+                        GL.GL_DYNAMIC_DRAW);
             gl.glVertexAttribPointer(attribute.getShaderLocation(), attribute.getElementSize(), attribute.getGLType(),
                     false, attribute.getElementSize() * attribute.getSizeOfType(), 0);
         }
@@ -77,23 +81,28 @@ public class PointCloudRenderer {
         // draw indexes
         IntAttribute indices = buffer.getIndicesAttribute();
         gl.glBindBuffer(PGL.ELEMENT_ARRAY_BUFFER, indices.getVboId());
-        pgl.bufferData(
-                PGL.ELEMENT_ARRAY_BUFFER,
-                indices.getSizeOfType() * indices.getElementSize() * buffer.getLength(),
-                indices.getBuffer(),
-                GL.GL_DYNAMIC_DRAW);
+        if (buffer.isDirty())
+            gl.glBufferData(
+                    PGL.ELEMENT_ARRAY_BUFFER,
+                    indices.getSizeOfType() * indices.getElementSize() * buffer.getLength(),
+                    indices.getBuffer(),
+                    GL.GL_DYNAMIC_DRAW);
 
         // draw elements
         gl.glDrawElements(PGL.POINTS, buffer.getLength(), indices.getGLType(), 0);
         gl.glBindBuffer(PGL.ELEMENT_ARRAY_BUFFER, 0);
 
         // disable vbos
-        for(PointCloudAttribute attribute : attributes) {
+        for (PointCloudAttribute attribute : attributes) {
             gl.glDisableVertexAttribArray(attribute.getShaderLocation());
         }
 
         shader.unbind();
         app.endPGL();
+
+        // reset dirty flag
+        if(buffer.isDirty())
+            buffer.setDirty(false);
     }
 
     public PShader getShader() {

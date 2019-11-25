@@ -17,6 +17,11 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    // configuration that holds jars to include in the jar
+    extraLibs
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
@@ -26,10 +31,11 @@ dependencies {
     compile files('lib/processing/jogl-all.jar')
 
     // peasycam
-    compile files('lib/peasycam/peasycam.jar')
+    testCompile files('lib/peasycam/peasycam.jar')
 
     // ply
     compile files('lib/ply/sjmply.jar')
+    extraLibs files('lib/ply/sjmply.jar')
 }
 
 configurations {
@@ -53,6 +59,6 @@ javadoc {
 
 task fatJar(type: Jar) {
     baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }

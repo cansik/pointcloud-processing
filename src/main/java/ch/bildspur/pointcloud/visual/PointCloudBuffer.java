@@ -10,6 +10,7 @@ public class PointCloudBuffer {
     private int length;
     private HashMap<String, PointCloudAttribute> attributes;
     private IntAttribute indicesAttribute;
+    private boolean dirty = false;
 
     public PointCloudBuffer(int length) {
         this.length = length;
@@ -47,5 +48,13 @@ public class PointCloudBuffer {
 
     public int getLength() {
         return length;
+    }
+
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    public void setDirty(boolean dirty) {
+        this.dirty = dirty;
     }
 }

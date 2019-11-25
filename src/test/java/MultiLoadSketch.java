@@ -63,7 +63,8 @@ public class MultiLoadSketch extends PApplet {
         renderCloud(kornhaus2mio, map(6, 0, 8, -width / 2f, +width / 2f), 0);
 
         cam.beginHUD();
-        text("FPS: " + frameRate, 30, 30);
+        text("FPS: " + frameRate +
+                "\nVertex Count: " + (kornhaus500k.getLength() + kornhaus1mio.getLength() + kornhaus2mio.getLength()), 30, 30);
         cam.endHUD();
     }
 
