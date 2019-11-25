@@ -46,7 +46,7 @@ public class LoadCloudSketch extends PApplet {
         // pclBuffer = reader.read("readme/Kornhaus_2.5m.ply");
         // pclBuffer = reader.read("readme/Kornhaus_1m.ply");
         //pclBuffer = reader.read("readme/Kornhaus_500k.ply");
-        pclBuffer = reader.read("readme/StadtmuseumAarau_8mio.ply");
+        pclBuffer = reader.read("readme/bunny.ply");
 
         pclRenderer.attach(pclBuffer);
     }

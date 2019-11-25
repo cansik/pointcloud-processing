@@ -18,20 +18,11 @@ void setup() {
   shader = loadShader("shader/basicPointFrag.glsl", "shader/basicPointVertex.glsl");
   pclRenderer.setShader(shader);
 
-  // setup pointcloud
-  pclBuffer = new PointCloudBuffer(1000 * 800);
-  FloatAttribute positionAttribute = new FloatAttribute("position", 4);
+  // load pointcloud
+  PLYReader reader = new PLYReader(PLYFormat.BINARY_LITTLE_ENDIAN);
+  pclBuffer = reader.read(sketchPath("bunny.ply"));
 
-  pclBuffer.addAttribute(positionAttribute);
-  pclBuffer.allocate();
-
-  // fill with random points
-  for (int i = 0; i < pclBuffer.getLength(); i++) {
-    PVector v = PVector.random3D();
-    v.mult(random(10, 300));
-    positionAttribute.set(i * positionAttribute.getElementSize(), v.x, v.y, v.z, 1.0f);
-  }
-
+  // attach pointcloud
   pclRenderer.attach(pclBuffer);
 }
 
@@ -39,8 +30,9 @@ void draw() {
   background(0);
 
   push();
-  translate(width / 2, height / 2);
+  translate(width / 2, height / 1.3);
   rotateY(frameCount / 1000.0);
+  scale(0.5);
   pclRenderer.render(pclBuffer);
   pop();
 
