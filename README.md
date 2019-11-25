@@ -30,10 +30,10 @@ The plan is to have three modules to work with point clouds. The most important 
 ### Example
 I have added some very basic examples, because people were asking me about it.
 
-Currently there are two problems you have to deal with:
+Currently there are two problems you have to deal with ⚡️:
 
-0. I can not get processing to redraw, if nothing in the scene is drawn by processing. This is why I've added a simple line to the output while rendering.
-1. The library is far away from being finished. This is a work in progress thing and I am happy if you contribute your findings back to me.
+1. I can not get processing to redraw, if nothing in the scene is drawn by processing. This is why I've added a simple line to the output while rendering.
+2. The library is far away from being finished. This is a work in progress thing and I am happy if you contribute your findings back to me.
 
 #### Basic Cloud Example
 
