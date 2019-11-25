@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'ch.bildspur.pointcloud'
-version '0.5.1'
+version 'alpha-0.1'
 
 sourceCompatibility = 1.8
 

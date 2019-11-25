@@ -15,23 +15,23 @@ public class FloatAttribute extends PointCloudAttribute {
     }
 
     public void set(int index, float value) {
-        buffer.rewind();
+        ((Buffer) buffer).rewind();
         buffer.put(index, value);
-        buffer.rewind();
+        ((Buffer) buffer).rewind();
     }
 
     public void set(int index, float... values) {
-        buffer.rewind();
+        ((Buffer) buffer).rewind();
         for(int i = 0; i < values.length; i++) {
             buffer.put(index + i, values[i]);
         }
-        buffer.rewind();
+        ((Buffer) buffer).rewind();
     }
 
     public void set(float[] values) {
-        buffer.rewind();
+        ((Buffer) buffer).rewind();
         buffer.put(values);
-        buffer.rewind();
+        ((Buffer) buffer).rewind();
     }
 
     @Override

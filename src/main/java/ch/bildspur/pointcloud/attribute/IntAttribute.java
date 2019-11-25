@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 
-public class IntAttribute extends PointCloudAttribute{
+public class IntAttribute extends PointCloudAttribute {
     private IntBuffer buffer;
 
     public IntAttribute(String name, int elementSize) {
@@ -15,23 +15,24 @@ public class IntAttribute extends PointCloudAttribute{
     }
 
     public void set(int index, int value) {
-        buffer.rewind();
+        // ((Buffer)buffer) => is ugly, but necessary for processing to work (java8 and lower)
+        ((Buffer) buffer).rewind();
         buffer.put(index, value);
-        buffer.rewind();
+        ((Buffer) buffer).rewind();
     }
 
     public void set(int index, int... values) {
-        buffer.rewind();
-        for(int i = 0; i < values.length; i++) {
+        ((Buffer) buffer).rewind();
+        for (int i = 0; i < values.length; i++) {
             buffer.put(index + i, values[i]);
         }
-        buffer.rewind();
+        ((Buffer) buffer).rewind();
     }
 
     public void set(int[] values) {
-        buffer.rewind();
+        ((Buffer) buffer).rewind();
         buffer.put(values);
-        buffer.rewind();
+        ((Buffer) buffer).rewind();
     }
 
     @Override
