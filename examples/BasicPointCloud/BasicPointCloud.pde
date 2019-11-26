@@ -36,7 +36,7 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  background(22);
 
   push();
   translate(width / 2, height / 2);
@@ -44,5 +44,6 @@ void draw() {
   pclRenderer.render(pclBuffer);
   pop();
 
+  text(" ", 0, 0);
   surface.setTitle("FPS: " + nfp(frameRate, 2, 2) + "\tVertices: " + pclBuffer.getLength());
 }

@@ -6,6 +6,7 @@ import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL4;
 import processing.core.PApplet;
 import processing.opengl.PGL;
+import processing.opengl.PGraphicsOpenGL;
 import processing.opengl.PJOGL;
 import processing.opengl.PShader;
 
@@ -101,11 +102,7 @@ public class PointCloudRenderer {
         app.endPGL();
 
         // set modified flag on processing
-        // todo: use canvas to render onto
-        app.g.setModified(true);
-        app.g.setModified();
-        // todo: remove line and set g to modified
-        app.g.line(1000, 1000, 1000, 1001, 1001, 1001);
+        ((PGraphicsOpenGL)app.g).loaded = false;
 
         // reset dirty flag
         if(buffer.isDirty())
