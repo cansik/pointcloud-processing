@@ -19,7 +19,7 @@ void setup() {
   pclRenderer.setShader(shader);
 
   // setup pointcloud
-  pclBuffer = new PointCloudBuffer(1000 * 800);
+  pclBuffer = new PointCloudBuffer(1000 * 4000);
   FloatAttribute positionAttribute = new FloatAttribute("position", 4);
 
   pclBuffer.addAttribute(positionAttribute);
