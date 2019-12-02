@@ -1,9 +1,9 @@
 # Point Cloud for Processing [![Build Status](https://travis-ci.org/cansik/pointcloud-processing.svg?branch=master)](https://travis-ci.org/cansik/pointcloud-processing) [![Build status](https://ci.appveyor.com/api/projects/status/nbuo6sxyx40weisi?svg=true)](https://ci.appveyor.com/project/cansik/pointcloud-processing)
 A point cloud visualisation and analysis library for the [Processing](https://processing.org/) framework.
 
-![Example](readme/example.png)
+![Example](readme/pcl50-2.jpg)
 
-*Figure 1: 5'000'000 points with 60 FPS rendered on a Radeon Pro 460*
+*Figure 1: 50'270'180 points with 50 FPS rendered on a Nvidia 1080ti*
 
 ### Idea
 This framework allows you to display millions of points within your Processing sketch. The idea was to build a simple, although a performant framework, which can load, display, and even analyze point cloud data.
@@ -36,10 +36,13 @@ Currently there are two problems you have to deal with ⚡️:
 2. The library is far away from being finished. This is a work in progress thing and I am happy if you contribute your findings back to me.
 
 #### Basic Cloud Example
+This example just loads random coordinates into a vertex buffer and displays them. At the moment this crashes on a Windows with 1080ti, but runs smoothly on a MacBook Pro with a Radeon.
 
 [examples/BasicPointCloud](examples/BasicPointCloud)
 
 #### Simple Load Example
+
+Loads a PLY file and displays it. This examples runs on Mac and Windows.
 
 [examples/BasicPointCloud](examples/BasicPointCloud)
 
