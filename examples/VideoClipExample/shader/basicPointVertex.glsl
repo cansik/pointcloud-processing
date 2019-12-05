@@ -35,16 +35,17 @@ void main() {
 	gl_Position.xy = clip.xy + mix(noPerspScale, perspScale, float(perspective > 0));
 	gl_Position.zw = clip.zw;
 
+
 	// based on x
-	float value = mod(time * 5.0, 10.0) * 200.0 - 1000.0;
+	float value = mod(time * 1.8, 2.0) * 1.0 - 1.0;
 
 	vec4 c = color;
 	c = vec4(0.5, 0.5, 0.5, 1.0);
 
-	float rstart = -50.0;
-	float rend = 50.0;
-	if(position.x - value > rstart && position.x - value < rend) {
-		float v = 1.0 - abs(position.x - value) / 100.0;
+	float rstart = -0.1;
+	float rend = 0.1;
+	if(position.z - value > rstart && position.z - value < rend) {
+		float v = max(0.5, 1.0 - abs(position.z - value) / 0.2);
 		c = vec4(v, v, v, 1.0);
 	}
 
