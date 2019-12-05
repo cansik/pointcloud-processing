@@ -36,7 +36,7 @@ void main() {
 	gl_Position.zw = clip.zw;
 
 	// based on x
-	float value = mod(time * 10.0, 10.0) * 200.0 - 1000.0;
+	float value = mod(time * 5.0, 10.0) * 200.0 - 1000.0;
 
 	vec4 c = color;
 	c = vec4(0.5, 0.5, 0.5, 1.0);
@@ -44,7 +44,8 @@ void main() {
 	float rstart = -50.0;
 	float rend = 50.0;
 	if(position.x - value > rstart && position.x - value < rend) {
-		c = vec4(1.0, 1.0, 1.0, 1.0);
+		float v = 1.0 - abs(position.x - value) / 100.0;
+		c = vec4(v, v, v, 1.0);
 	}
 
 
