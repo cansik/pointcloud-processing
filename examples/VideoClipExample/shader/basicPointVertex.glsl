@@ -40,7 +40,7 @@ void main() {
 	float value = mod(time * 1.8, 2.0) * 1.0 - 1.0;
 
 	vec4 c = color;
-	c = vec4(0.5, 0.5, 0.5, 1.0);
+	c = color; //vec4(0.5, 0.5, 0.5, 1.0);
 
 	float rstart = -0.1;
 	float rend = 0.1;
