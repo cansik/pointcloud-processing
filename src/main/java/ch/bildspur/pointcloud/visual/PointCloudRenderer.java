@@ -5,6 +5,7 @@ import ch.bildspur.pointcloud.attribute.PointCloudAttribute;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL4;
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.opengl.PGL;
 import processing.opengl.PGraphicsOpenGL;
 import processing.opengl.PJOGL;
@@ -14,19 +15,24 @@ import java.nio.IntBuffer;
 import java.util.Collection;
 
 public class PointCloudRenderer {
-    private PApplet app;
+    private PGraphics graphics;
     private PShader shader;
 
     public PointCloudRenderer(PApplet app) {
-        this.app = app;
+        this(app.g);
+    }
+
+    public PointCloudRenderer(PGraphics graphics) {
+        this.graphics = graphics;
     }
 
     public void loadShader(String fragmentShaderPath, String vertexShaderPath) {
-        this.shader = app.loadShader(fragmentShaderPath, vertexShaderPath);
+        this.shader = graphics.loadShader(fragmentShaderPath, vertexShaderPath);
     }
 
     public void attach(PointCloudBuffer buffer) {
-        PJOGL pgl = (PJOGL) app.beginPGL();
+        graphics.beginDraw();
+        PJOGL pgl = (PJOGL) graphics.beginPGL();
         GL4 gl = pgl.gl.getGL4();
 
         // generate vbo ids (+1 for indices)
@@ -48,14 +54,14 @@ public class PointCloudRenderer {
             i++;
         }
         shader.unbind();
-        app.endPGL();
+        graphics.endPGL();
 
         // set dirty flag
         buffer.setDirty(true);
     }
 
     public void render(PointCloudBuffer buffer) {
-        PJOGL pgl = (PJOGL) app.beginPGL();
+        PJOGL pgl = (PJOGL) graphics.beginPGL();
         GL4 gl = pgl.gl.getGL4();
 
         Collection<PointCloudAttribute> attributes = buffer.getAttributes().values();
@@ -99,10 +105,10 @@ public class PointCloudRenderer {
         }
 
         shader.unbind();
-        app.endPGL();
+        graphics.endPGL();
 
         // set modified flag on processing
-        ((PGraphicsOpenGL)app.g).loaded = false;
+        ((PGraphicsOpenGL) graphics).loaded = false;
 
         // reset dirty flag
         if(buffer.isDirty())
