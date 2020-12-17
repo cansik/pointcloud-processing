@@ -1,6 +1,8 @@
 import ch.bildspur.pointcloud.attribute.*;
 import ch.bildspur.pointcloud.visual.*;
 import processing.opengl.*;
+import ch.bildspur.pointcloud.io.reader.PLYReader;
+import org.jengineering.sjmply.PLYFormat;
 
 PShader shader;
 PointCloudRenderer pclRenderer;

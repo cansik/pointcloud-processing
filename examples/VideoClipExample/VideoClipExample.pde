@@ -5,6 +5,8 @@ import ch.bildspur.postfx.builder.*;
 import ch.bildspur.postfx.pass.*;
 import ch.bildspur.postfx.*;
 import peasy.PeasyCam;
+import ch.bildspur.pointcloud.io.reader.PLYReader;
+import org.jengineering.sjmply.PLYFormat;
 
 PeasyCam cam;
 

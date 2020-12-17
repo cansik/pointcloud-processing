@@ -9,7 +9,7 @@ fi
 
 # parameter
 VERSION=$1
-NAME="pointcloud-processing"
+NAME="PointcloudProcessing"
 
 echo $PWD
 
